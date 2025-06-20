@@ -1,137 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ANJU</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #fff1f9, #f0faff);
-      color: #333;
-      text-align: center;
-      padding: 20px;
-    }
-
-    header {
-      background-color: #e0aaff;
-      padding: 12px 16px;
-      border-radius: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    header h1 {
-      color: white;
-      font-size: 22px;
-      font-weight: 700;
-      display: inline;
-    }
-
-    nav {
-      margin-top: 8px;
-    }
-
-    nav a {
-      margin: 0 10px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .hero h2 {
-      font-size: 20px;
-      color: #444;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 30px;
-    }
-
-    .carousel-container {
-      perspective: 1000px;
-      height: 180px;
-      overflow: hidden;
-    }
-
-    .carousel {
-      width: 100%;
-      height: 180px;
-      position: relative;
-      transform-style: preserve-3d;
-      animation: rotate 15s linear infinite;
-    }
-
-    .carousel img {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 16px;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .carousel img:nth-child(1) { transform: rotateY(0deg) translateZ(250px); }
-    .carousel img:nth-child(2) { transform: rotateY(60deg) translateZ(250px); }
-    .carousel img:nth-child(3) { transform: rotateY(120deg) translateZ(250px); }
-    .carousel img:nth-child(4) { transform: rotateY(180deg) translateZ(250px); }
-    .carousel img:nth-child(5) { transform: rotateY(240deg) translateZ(250px); }
-    .carousel img:nth-child(6) { transform: rotateY(300deg) translateZ(250px); }
-
-    @keyframes rotate {
-      from { transform: rotateY(0deg); }
-      to { transform: rotateY(360deg); }
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 12px;
-      color: #aaa;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anju's To-Do List</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+  <div class="container">
+    <div class="card">
+      <h1>🌸 Hello, <span class="name">Anju</span>!</h1>
+      <p class="tagline">Let's plan a beautiful day together ✨</p>
 
-  <header>
-    <h1>ANJU</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Gallery</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
+      <div class="input-section">
+        <input type="text" id="taskInput" placeholder="Add something amazing...">
+        <button onclick="addTask()"><i class="fas fa-plus"></i></button>
+      </div>
 
-  <div class="hero">
-    <h2>Welcome to ANJU's Web</h2>
-    <p>Beautiful animations, stunning design – made for you</p>
-  </div>
-
-  <div class="carousel-container">
-    <div class="carousel">
-      <img src="https://picsum.photos/id/1011/120" />
-      <img src="https://picsum.photos/id/1012/120" />
-      <img src="https://picsum.photos/id/1013/120" />
-      <img src="https://picsum.photos/id/1014/120" />
-      <img src="https://picsum.photos/id/1015/120" />
-      <img src="https://picsum.photos/id/1016/120" />
+      <ul id="taskList"></ul>
     </div>
   </div>
 
-  <footer>© 2025 ANJU Web</footer>
+  <script>
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const taskText = input.value.trim();
+      if (taskText === "") return;
 
+      const li = document.createElement("li");
+      li.className = "task";
+
+      const span = document.createElement("span");
+      span.textContent = taskText;
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const doneBtn = document.createElement("button");
+      doneBtn.innerHTML = '<i class="fas fa-check"></i>';
+      doneBtn.className = "done";
+      doneBtn.onclick = () => span.classList.toggle("completed");
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+      deleteBtn.className = "delete";
+      deleteBtn.onclick = () => li.remove();
+
+      actions.appendChild(doneBtn);
+      actions.appendChild(deleteBtn);
+      li.appendChild(span);
+      li.appendChild(actions);
+
+      document.getElementById("taskList").appendChild(li);
+      input.value = "";
+    }
+  </script>
 </body>
 </html>
